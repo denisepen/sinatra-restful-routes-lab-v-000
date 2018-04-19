@@ -24,7 +24,7 @@ class ApplicationController < Sinatra::Base
     redirect "/recipes/#{@recipe.id}"
 
   end
-
+use Rack::MethodOverride
   get '/recipes/:id' do
     # binding.pry
     # @recipe.id = params[:id]
@@ -38,7 +38,7 @@ class ApplicationController < Sinatra::Base
     erb :edit
   end
 
-use Rack::MethodOverride
+
   patch 'recipes/:id' do
     @recipe = Recipe.find_by_id(params[:id])
   @recipe.title = params[:name]
