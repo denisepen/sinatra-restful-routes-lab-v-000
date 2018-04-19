@@ -7,6 +7,7 @@ class ApplicationController < Sinatra::Base
     set :method_override, true
   end
 
+  use Rack::MethodOverride
 
   get '/recipes' do
     @recipes = Recipe.all
