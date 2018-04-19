@@ -38,6 +38,7 @@ class ApplicationController < Sinatra::Base
     erb :edit
   end
 
+use Rack::MethodOverride
   patch 'recipes/:id' do
     @recipe = Recipe.find_by_id(params[:id])
   @recipe.title = params[:name]
