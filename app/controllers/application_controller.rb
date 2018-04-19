@@ -4,6 +4,7 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
   end
+
   use Rack::MethodOverride
   get '/recipes' do
     @recipes = Recipe.all
@@ -33,12 +34,13 @@ class ApplicationController < Sinatra::Base
     erb :show
   end
 
+use Rack::MethodOverride
   get '/recipes/:id/edit' do
     @recipe = Recipe.find_by_id(params[:id])
     erb :edit
   end
 
-
+use Rack::MethodOverride
   patch 'recipes/:id' do
     @recipe = Recipe.find_by_id(params[:id])
   @recipe.title = params[:name]
@@ -48,6 +50,7 @@ class ApplicationController < Sinatra::Base
   redirect "/recipes/#{@recipe.id}"
   end
 
+use Rack::MethodOverride
   delete '/recipes/:id/delete' do #delete action
   @recipe = Recipe.find_by_id(params[:id])
   @recipe.delete
