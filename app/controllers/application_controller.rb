@@ -4,7 +4,7 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
   end
-
+  use Rack::MethodOverride
   get '/recipes' do
     @recipes = Recipe.all
     erb :index
@@ -24,7 +24,7 @@ class ApplicationController < Sinatra::Base
     redirect "/recipes/#{@recipe.id}"
 
   end
-use Rack::MethodOverride
+
   get '/recipes/:id' do
     # binding.pry
     # @recipe.id = params[:id]
