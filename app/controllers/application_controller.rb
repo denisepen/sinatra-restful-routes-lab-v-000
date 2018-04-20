@@ -19,6 +19,14 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  get '/recipes/:id' do
+    # binding.pry
+    # @recipe.id = params[:id]
+    @recipe = Recipe.find_by_id(params[:id])
+    @recipe.id = params[:id]
+    erb :show
+  end
+
 
 
   post '/recipes' do
@@ -31,13 +39,7 @@ class ApplicationController < Sinatra::Base
 
   end
 
-  get '/recipes/:id' do
-    # binding.pry
-    # @recipe.id = params[:id]
-    @recipe = Recipe.find_by_id(params[:id])
-    @recipe.id = params[:id]
-    erb :show
-  end
+
 
 
   get '/recipes/:id/edit' do
@@ -59,9 +61,7 @@ class ApplicationController < Sinatra::Base
   post '/recipes' do
     @recipe = Recipe.new(:name => params[:name], :ingredients => params[:ingredients], :cook_time => params[:cook_time])
     @recipe.save
-    #  params[:id] = @recipe.id
     @recipes = Recipe.all
-    # binding.pry
     redirect to "/recipes/#{@recipe.id}"
 
   end
